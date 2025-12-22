@@ -37,7 +37,8 @@ In practice I estimate the force to be about 60g (0.6N) at 5A. I will do proper 
 
 ## Pictures
 <img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/693bae00-1249-4b2b-bf0a-f47eb23e39ab" />
-<img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/7d862a5f-a847-482f-b743-b641d5d18b82" />
+<img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/cc07a811-cf3e-4aa5-9688-4eae204eb426" />
+
 
 # Moving Magnet Design
 I will update this section when I finish the prototype.
