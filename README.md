@@ -41,5 +41,13 @@ In practice I estimate the force to be about 60g (0.6N) at 5A. I will do proper 
 
 
 # Moving Magnet Design
-I will update this section when I finish the prototype.
+This section will be updated when the protype is finished.
 
+This design uses copper rods for a smooth linear motion and rotational constraint. It is not ideal because it adds complexity, relies on friction fitment, the coil is far from the magnets, and it is very wide using the whole key unit.
+
+Designing the top stem part to be a square or other polygon and be able to print horizontally may be a better solution but that would only have one point of contact which could lead to bad wobble.
+
+Feedback for any other ideas would be appretiated.
+
+<img width="916" height="876" alt="{7D4D76DD-6E0B-40AD-A36A-D032F15F9EBD}" src="https://github.com/user-attachments/assets/5a702273-71ae-4369-b504-e070f2874428" />
+<img width="1241" height="965" alt="{0341034A-AC02-4D13-881B-9EF00B67B949}" src="https://github.com/user-attachments/assets/6fe5ea91-d0b1-457b-abea-6234de60c02b" />
