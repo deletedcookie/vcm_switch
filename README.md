@@ -41,7 +41,6 @@ In practice I estimate the force to be about 60g (0.6N) at 5A. I will do proper 
 
 
 # Moving Magnet Design
-This section will be updated when the protype is finished.
 
 This design uses copper rods for a smooth linear motion and rotational constraint. It is not ideal because it adds complexity, relies on friction fitment, the coil is far from the magnets, and it is very wide using the whole key unit.
 
@@ -51,3 +50,16 @@ Feedback for any other ideas would be appretiated.
 
 <img width="916" height="876" alt="{7D4D76DD-6E0B-40AD-A36A-D032F15F9EBD}" src="https://github.com/user-attachments/assets/5a702273-71ae-4369-b504-e070f2874428" />
 <img width="1241" height="965" alt="{0341034A-AC02-4D13-881B-9EF00B67B949}" src="https://github.com/user-attachments/assets/6fe5ea91-d0b1-457b-abea-6234de60c02b" />
+
+
+I cut a spring from a different switch to make one that provides about 20g of force. I also experimented with using magnets and 2 4x2 magnets in place of the spring provided about 2g of force, too light for me.
+<img width="959" height="1279" alt="image" src="https://github.com/user-attachments/assets/67f32a86-0894-4ea5-ace5-8538e027354d" />
+
+
+Here is the force in grams with the current being stepped up one amp at a time. It gets very hot at 3A, the resistance of the coil is about 1.8 Ohms so thats almost 20W of heat. The fingers that hold onto the copper rods deformed a little and made the key wobble worse.
+<img width="2377" height="361" alt="{7EF709A5-489B-4DE7-86A2-D196FC4D9136}" src="https://github.com/user-attachments/assets/7586844e-fd32-4f71-8910-5db3e37c5c2b" />
+Here is the same test with reverse polarity.
+<img width="2373" height="345" alt="{7664F495-7FE7-420E-BC7D-BEA1ED7951EA}" src="https://github.com/user-attachments/assets/686b6818-e665-4674-8ada-1f87368eb921" />
+
+These forces are about half of what I was expecting according to simulations.
+
