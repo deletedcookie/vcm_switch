@@ -39,6 +39,13 @@ In practice I estimate the force to be about 60g (0.6N) at 5A. I will do proper 
 <img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/693bae00-1249-4b2b-bf0a-f47eb23e39ab" />
 <img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/cc07a811-cf3e-4aa5-9688-4eae204eb426" />
 
+Here is the force in grams with the current being stepped up one amp at a time from 0 to 3A. The coil is about 1.4 Ohms.
+<img width="1860" height="353" alt="image" src="https://github.com/user-attachments/assets/a9ea49a6-75a7-4f29-a663-a8d9f9a0b641" />
+Here is the test with reverse polarity. The force overpowers the spring after about 2A and it moves away from the load cell.
+<img width="1836" height="358" alt="{F375600D-E718-43F7-806E-2106C45BF09C}" src="https://github.com/user-attachments/assets/fb198324-2cee-4676-a32c-f3f57c417e47" />
+
+
+
 
 # Moving Magnet Design
 
