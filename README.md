@@ -1,72 +1,74 @@
-# vcm_switch
-Force feedback switch concept using voice coil motors
+# VCM Switch V0.1
 
-# Moving Coil Design
-The first design I made was a moving coil design. The coil is relativly light compared to the magnets which would allow for faster master movements.
+Force feedback keyboard switch using voice coil motor.
+This could be used for haptic feedback or to adjust force curves and tactility for the users preferences.
+
+## Mechanical design
+
+This was designed to be SLA printed with a high temp resin such as Syria Tech Sculpt.
+The stem components and magnets are assembled with high temp epoxy in a fixture to align the magnets.
+
+The opposing magnets cause a strong magnetic field in the small area where they meet. Only the part of the coil in this magnetic field is contributing the force. Additionally the ends of the magnets have an opposite magnetic field causing a force in the other direction, decreasing the force in the desired direction. By being able to turn off parts of the coil when not contributing to the desired force the switch will be more efficient for reduced heat and have a higher peak force. Two coils are used in this design due to small stroke length and driving simplicity.
+
+The coils were wound with 0.1mm (38 AWG) enamel wire which measured about 58 Ohms giving a max current of 200mA at 12V.
+
+A spring from a low profile switch was used to provide a light baseline force that can be altered with the coils.
+
+![[Images/vcm_switch_cross_section_labled.png|542]]
+
+![[Images/vcm_switch_render_bottom.png|542]] 
+
+![[Images/vcm_switch_render_top.png|530]]
+
+## Electronics
+
+Two Hall Effect sensors (AH49E) in the centers of the coils were used to track the position of the switch in hopes of not picking up the coils magnetic field by being off axis.
+
+A quad half bridge motor driver (TB67H410NG) was used to be able to drive each coil in both directions.
+
+![[Images/test_fixture.jpg]]
+
+## Firmware
+
+The two sensors have a offset sinusoidal output across the travel of the switch which allows for an arctan2 function to be used to get an angle which is relative to the travel position. In theory this should be close to linear and can be scaled and offset to calculate the position. However this proved to be inaccurate and linear interpolation with a lookup table was used instead.
+
+The sensors pick up enough of the coils magnetic field for almost a millimeter of deviation when the coil is on at full power. The change in angle relative to the duty cycle is very linear and does not change depending on which coils are active. 
+
+![[Images/coil_offset_test.png]]
+
+This allows for a constant multiplied by the duty cycle to be used to calculate the correct offset. The following figure shows the calculated position while ramping the duty cycle from 0-100% in both directions with and without the offset.
+
+![[Images/coil_offset_comparison.png]]
+
+A three point median filter was used to remove any large spikes of noise without causing too much delay.
+
+![[Images/filtered_data_comparison.png]]
+
+When the coil heats up the resistance increases which causes less coil current and therefore less magnetic field produced by the coil causing the offset to be inaccurate. Temperature compensation was not implemented for this prototype and was just cooled between tests.
+
+A cross fade was implemented for a smooth transition when switching between the two coils.
+
+## Tests
+These tests were performed with a 12V supply drawing about 2.5W per coil at 100% duty cycle.
+
+### Travel Tests
+
+Baseline - no current through the coils
+![[Images/no_coil.png]]
+
+Top coil only - 100% duty cycle![[Images/top_coil_100dc.png]]
+
+Bottom coil only - 100% duty cycle
+![[Images/bottom_coil_100dc.png]]
+
+Both coils - 100% duty cycle (5W)
+![[Images/both_coil_100dc.png]]
+
+Dynamic coils - 100% duty cycle (2.5W)
+![[Images/dynamic_coil_100dc.png]]
 
 
-<img width="1067" height="852" alt="{Cross section of moving coil design}" src="https://github.com/user-attachments/assets/934ccd31-9c0d-4a07-a008-7f90d6c4dd7f" />
+### Duty Cycle Tests
 
-The bobbin and core are 3d printed out of PETG. The bobbin is wound with two layers of 30AWG magnet wire (about 60 turns).
-The magnets, washers, and core are glued together and can be mounted to the PCB with a screw.
-
-The PCB section is 19.05mm for reference, so it fits within a standard key unit. The height is 14mm. Adding an MX style stem wouuld add another 4mm.
-
-From simulations I found that a ferrous spacer between the magnets increases efficiency by 5-10% while a ferrous core decreases efficency by 5-10%.
-
-The spring could possibly be replaced with a small magnet to provide the passive force instead.
-
-The magnetic field generated from the coil is very little relative to the magnets but may still need to be adjusted for in software.
-
-## Issues with this design:
-
-Melts bobbin after a couple minutes.
-
-No rotational movement constraint.
-
-No vertical movement constraint.
-
-Wires on moving parts.
-
-## Simulation
-<img width="1618" height="973" alt="Moving coil VCM simulation" src="https://github.com/user-attachments/assets/186a46bd-645d-4086-91c4-96243d16341d" />
-There is a very consistant response across the travel of the switch which then falls off quickly after the edge of the coil starts to move past the bottom magnet.
-The flat response area can be extened for more switch travel by increasing the coil height.
-
-In practice I estimate the force to be about 60g (0.6N) at 5A. I will do proper tests on this in the future.
-
-## Pictures
-<img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/693bae00-1249-4b2b-bf0a-f47eb23e39ab" />
-<img width="1705" height="1279" alt="image" src="https://github.com/user-attachments/assets/cc07a811-cf3e-4aa5-9688-4eae204eb426" />
-
-Here is the force in grams with the current being stepped up one amp at a time from 0 to 3A. The coil is about 1.4 Ohms.
-<img width="1860" height="353" alt="image" src="https://github.com/user-attachments/assets/a9ea49a6-75a7-4f29-a663-a8d9f9a0b641" />
-Here is the test with reverse polarity. The force overpowers the spring after about 2A and it moves away from the load cell.
-<img width="1836" height="358" alt="{F375600D-E718-43F7-806E-2106C45BF09C}" src="https://github.com/user-attachments/assets/fb198324-2cee-4676-a32c-f3f57c417e47" />
-
-
-
-
-# Moving Magnet Design
-
-This design uses copper rods for a smooth linear motion and rotational constraint. It is not ideal because it adds complexity, relies on friction fitment, the coil is far from the magnets, and it is very wide using the whole key unit.
-
-Designing the top stem part to be a square or other polygon and be able to print horizontally may be a better solution but that would only have one point of contact which could lead to bad wobble.
-
-Feedback for any other ideas would be appretiated.
-
-<img width="916" height="876" alt="{7D4D76DD-6E0B-40AD-A36A-D032F15F9EBD}" src="https://github.com/user-attachments/assets/5a702273-71ae-4369-b504-e070f2874428" />
-<img width="1241" height="965" alt="{0341034A-AC02-4D13-881B-9EF00B67B949}" src="https://github.com/user-attachments/assets/6fe5ea91-d0b1-457b-abea-6234de60c02b" />
-
-
-I cut a spring from a different switch to make one that provides about 20g of force. I also experimented with using magnets and 2 4x2 magnets in place of the spring provided about 2g of force, too light for me.
-<img width="959" height="1279" alt="image" src="https://github.com/user-attachments/assets/67f32a86-0894-4ea5-ace5-8538e027354d" />
-
-
-Here is the force in grams with the current being stepped up one amp at a time. It gets very hot at 3A, the resistance of the coil is about 1.8 Ohms so thats almost 20W of heat. The fingers that hold onto the copper rods deformed a little and made the key wobble worse.
-<img width="2377" height="361" alt="{7EF709A5-489B-4DE7-86A2-D196FC4D9136}" src="https://github.com/user-attachments/assets/7586844e-fd32-4f71-8910-5db3e37c5c2b" />
-Here is the same test with reverse polarity.
-<img width="2373" height="345" alt="{7664F495-7FE7-420E-BC7D-BEA1ED7951EA}" src="https://github.com/user-attachments/assets/686b6818-e665-4674-8ada-1f87368eb921" />
-
-These forces are about half of what I was expecting according to simulations.
-
+0 to 100% duty cycle - mid stroke
+![[Images/duty_cycle_test.png]]
