@@ -14,11 +14,11 @@ The coils were wound with 0.1mm (38 AWG) enamel wire which measured about 58 Ohm
 
 A spring from a low profile switch was used to provide a light baseline force that can be altered with the coils.
 
-![[Images/vcm_switch_cross_section_labled.png|542]]
+![](Images/vcm_switch_cross_section_labled.png)
 
-![[Images/vcm_switch_render_bottom.png|542]] 
+![](Images/vcm_switch_render_bottom.png)
 
-![[Images/vcm_switch_render_top.png|530]]
+![](Images/vcm_switch_render_top.png)
 
 ## Electronics
 
@@ -26,7 +26,7 @@ Two Hall Effect sensors (AH49E) in the centers of the coils were used to track t
 
 A quad half bridge motor driver (TB67H410NG) was used to be able to drive each coil in both directions.
 
-![[Images/test_fixture.jpg]]
+![](Images/test_fixture.jpg)
 
 ## Firmware
 
@@ -34,15 +34,15 @@ The two sensors have a offset sinusoidal output across the travel of the switch 
 
 The sensors pick up enough of the coils magnetic field for almost a millimeter of deviation when the coil is on at full power. The change in angle relative to the duty cycle is very linear and does not change depending on which coils are active. 
 
-![[Images/coil_offset_test.png]]
+![](Images/coil_offset_test.png)
 
 This allows for a constant multiplied by the duty cycle to be used to calculate the correct offset. The following figure shows the calculated position while ramping the duty cycle from 0-100% in both directions with and without the offset.
 
-![[Images/coil_offset_comparison.png]]
+![](Images/coil_offset_comparison.png)
 
 A three point median filter was used to remove any large spikes of noise without causing too much delay.
 
-![[Images/filtered_data_comparison.png]]
+![](Images/filtered_data_comparison.png)
 
 When the coil heats up the resistance increases which causes less coil current and therefore less magnetic field produced by the coil causing the offset to be inaccurate. Temperature compensation was not implemented for this prototype and was just cooled between tests.
 
@@ -54,21 +54,22 @@ These tests were performed with a 12V supply drawing about 2.5W per coil at 100%
 ### Travel Tests
 
 Baseline - no current through the coils
-![[Images/no_coil.png]]
+![](Images/no_coil.png)
 
-Top coil only - 100% duty cycle![[Images/top_coil_100dc.png]]
+Top coil only - 100% duty cycle
+![](Images/top_coil_100dc.png)
 
 Bottom coil only - 100% duty cycle
-![[Images/bottom_coil_100dc.png]]
+![](Images/bottom_coil_100dc.png)
 
 Both coils - 100% duty cycle (5W)
-![[Images/both_coil_100dc.png]]
+![](Images/both_coil_100dc.png)
 
 Dynamic coils - 100% duty cycle (2.5W)
-![[Images/dynamic_coil_100dc.png]]
+![](Images/dynamic_coil_100dc.png)
 
 
 ### Duty Cycle Tests
 
 0 to 100% duty cycle - mid stroke
-![[Images/duty_cycle_test.png]]
+![](Images/duty_cycle_test.png)
